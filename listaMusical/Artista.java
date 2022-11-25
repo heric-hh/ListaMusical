@@ -17,7 +17,14 @@ public class Artista {
     
     public String getArtistaNombre() { return this.nombreArtista; }
     
+    public void agregarAlbum( Album a ) {
+        this.listaAlbumes.add( a );
+    }
     
-    
+    public void getAlbumes() {
+        for (int i = 0; i < listaAlbumes.size(); i++) {
+            System.out.println(listaAlbumes.get(i).getNombreAlbum());
+        }
+    }
     
 }

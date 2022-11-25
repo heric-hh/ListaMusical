@@ -91,13 +91,6 @@ public class Main {
         return entrada;
     }
     
-    // Añadir album
-    public static void añadirAlbum() {
-        System.out.println("Lista de artistas.\nEscribe el numero del artista donde quieres añadir un album");
-        for (int i = 0; i < listaArtistas.size(); i++) {
-            System.out.println(i + " - " + listaArtistas.get(i).getArtistaNombre() );
-        }
-    }
     
     // Leer lista de artistas
     public static void getListaArtistas() {
@@ -108,6 +101,7 @@ public class Main {
     }
     
     // Eliminar elemento de la lista de artistas
+    
     public static void eliminarArtista() throws IOException {
         BufferedReader bf = new BufferedReader (new InputStreamReader( System.in ));
         int index; // Variable para obtener el indice del valor a eliminar
@@ -118,6 +112,50 @@ public class Main {
         listaArtistas.remove(index);
         System.out.println("¡Artista Eliminado!");
     }
+    
+    // Agregar album
+    
+    public static void agregarAlbum() throws IOException {
+        BufferedReader bf = new BufferedReader (new InputStreamReader ( System.in ));
+        int index;
+        
+        // Propiedades del disco
+        String albumInput;
+        String yearInput;
+        
+        System.out.println("Lista de artistas.\nEscribe el numero del artista donde quieres añadir un album");
+        for (int i = 0; i < listaArtistas.size(); i++) {
+            System.out.println(i + " - " + listaArtistas.get(i).getArtistaNombre() );
+        }
+        index = Integer.parseInt(bf.readLine());
+        Artista artistaSelec = listaArtistas.get( index ); // Obtener artista de la lista
+        System.out.println("Escribe el nombre del album: ");
+        albumInput = bf.readLine();
+        
+        System.out.println("Escribe el año de publicación: ");
+        yearInput = bf.readLine();
+        Album album = new Album( albumInput, yearInput );   
+        
+        artistaSelec.agregarAlbum( album ); //Añadir datos a la lista de albumes
+        System.out.println("¡Album Guardado!");
+    }
+    
+    // Ver albumes
+    
+    public static void getAlbumes() throws IOException {
+        BufferedReader bf = new BufferedReader (new InputStreamReader ( System.in ));
+        int index;
+        
+        System.out.println("Lista de artistas.\nEscribe el numero del artista para ver sus discos: ");
+        for (int i = 0; i < listaArtistas.size(); i++) {
+            System.out.println(i + " - " + listaArtistas.get(i).getArtistaNombre() );
+        }
+        index = Integer.parseInt(bf.readLine());
+        Artista artistaSelec = listaArtistas.get( index ); // Obtener artista de la lista
+        System.out.println("Lista de albumes de " + artistaSelec.getArtistaNombre());
+        artistaSelec.getAlbumes(); 
+    }
+    
     
     
     public static void main(String[] args) throws IOException {
@@ -134,7 +172,7 @@ public class Main {
 
             switch ( res ) {
                 
-            // Artistas
+            /**** Artistas ****/
                 
             case "agregar artista": {
                 System.out.println("Escribe el nombre del artista que quieres agregar: ");
@@ -157,10 +195,15 @@ public class Main {
             }
 
 
-            // Album
+            /****  Album  ****/
             
             case "agregar album": {
-                añadirAlbum();
+                agregarAlbum();
+                break;
+            }
+            
+            case "ver album": {
+                getAlbumes();
                 break;
             }
             
@@ -171,17 +214,5 @@ public class Main {
             YesNo = bf.readLine();
             
         } while ( YesNo.equals("y") );
-        
-        
-        
-        
-             
-        
-        
-        
-        // Metodos con el archivo especificado
-        //leerArchivo ( archivoName );
-        
-        
     }
 }
