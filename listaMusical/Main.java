@@ -15,6 +15,7 @@ import java.util.LinkedList;
  */
 public class Main {
     public static LinkedList<Artista> listaArtistas = new LinkedList<>();
+    public static Artista artistaSelec;
 
     // Pedir el nombre del fichero
     
@@ -128,7 +129,7 @@ public class Main {
             System.out.println(i + " - " + listaArtistas.get(i).getArtistaNombre() );
         }
         index = Integer.parseInt(bf.readLine());
-        Artista artistaSelec = listaArtistas.get( index ); // Obtener artista de la lista
+        artistaSelec = listaArtistas.get( index ); // Obtener artista de la lista
         System.out.println("Escribe el nombre del album: ");
         albumInput = bf.readLine();
         
@@ -151,9 +152,22 @@ public class Main {
             System.out.println(i + " - " + listaArtistas.get(i).getArtistaNombre() );
         }
         index = Integer.parseInt(bf.readLine());
-        Artista artistaSelec = listaArtistas.get( index ); // Obtener artista de la lista
+        artistaSelec = listaArtistas.get( index ); // Obtener artista de la lista
         System.out.println("Lista de albumes de " + artistaSelec.getArtistaNombre());
         artistaSelec.getAlbumes(); 
+    }
+    
+    // Eliminar album
+    
+    public static void eliminarAlbum() throws IOException {
+        BufferedReader bf = new BufferedReader (new InputStreamReader ( System.in ));
+        int index;
+        
+        getAlbumes();
+        System.out.println("Escribe el numero del album para eliminar: ");
+        index = Integer.parseInt(bf.readLine());
+        artistaSelec.eliminarAlbum( index );
+        System.out.println("¡Album eliminado!");
     }
     
     
@@ -204,6 +218,11 @@ public class Main {
             
             case "ver album": {
                 getAlbumes();
+                break;
+            }
+            
+            case "eliminar album": {
+                eliminarAlbum();
                 break;
             }
             
