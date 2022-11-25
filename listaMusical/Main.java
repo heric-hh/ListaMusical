@@ -16,6 +16,8 @@ import java.util.LinkedList;
 public class Main {
     public static LinkedList<Artista> listaArtistas = new LinkedList<>();
     public static Artista artistaSelec;
+    public static Album albumSelec;
+    public static Cancion cancion;
 
     // Pedir el nombre del fichero
     
@@ -60,6 +62,9 @@ public class Main {
             }
         }
     }
+    
+    /*** A R T I S T A S ***/
+
     
     // Escribir en el archivo especificado
     
@@ -114,6 +119,8 @@ public class Main {
         System.out.println("¡Artista Eliminado!");
     }
     
+    /*** A L B U M E S ***/
+    
     // Agregar album
     
     public static void agregarAlbum() throws IOException {
@@ -154,7 +161,8 @@ public class Main {
         index = Integer.parseInt(bf.readLine());
         artistaSelec = listaArtistas.get( index ); // Obtener artista de la lista
         System.out.println("Lista de albumes de " + artistaSelec.getArtistaNombre());
-        artistaSelec.getAlbumes(); 
+        artistaSelec.getAlbumes();
+        
     }
     
     // Eliminar album
@@ -169,6 +177,59 @@ public class Main {
         artistaSelec.eliminarAlbum( index );
         System.out.println("¡Album eliminado!");
     }
+    
+    /*** C A N C I O N E S ***/
+    
+    public static void agregarCancion() throws IOException {
+        BufferedReader bf = new BufferedReader (new InputStreamReader ( System.in ));
+        int index;
+        
+        // Propiedades de la cancion
+        String nombreCancion;
+        
+        getAlbumes();
+        System.out.println("Selecciona un album para agregar canciones: ");
+        artistaSelec.getAlbumes();
+        index = Integer.parseInt( bf.readLine() );
+        albumSelec = artistaSelec.getAlbum( index ); // Seleccionar el album de la lista
+        
+        System.out.println("Nombre de la cancion: ");
+        nombreCancion = escribirArchivo ( "canciones" );
+        
+        cancion = new Cancion ( nombreCancion );
+        albumSelec.agregarCancion( cancion );
+        
+    }
+    
+    public static void verCanciones() throws IOException {
+        BufferedReader bf = new BufferedReader (new InputStreamReader ( System.in ));
+        int index;
+        
+        System.out.println("Lista de artistas.\nEscribe el numero del artista donde quieres añadir una cancion");
+        for (int i = 0; i < listaArtistas.size(); i++) {
+            System.out.println(i + " - " + listaArtistas.get(i).getArtistaNombre() );
+        }
+        index = Integer.parseInt(bf.readLine());
+        artistaSelec = listaArtistas.get( index ); // Obtener artista de la lista
+        
+        System.out.println("Selecciona el album: ");
+        
+        artistaSelec.getAlbumes();
+        index = Integer.parseInt( bf.readLine() );
+        albumSelec = artistaSelec.getAlbum( index ); // Seleccionar el album de la lista
+        albumSelec.getCanciones();
+    }
+    
+    public static void eliminarCancion() throws IOException {
+        BufferedReader bf = new BufferedReader (new InputStreamReader ( System.in ));
+        int index;
+        
+        verCanciones();
+        System.out.println("Selecciona una canción para eliminar: ");
+        index = Integer.parseInt( bf.readLine() );
+        albumSelec.eliminarCancion( index );
+    }
+
     
     
     
@@ -225,6 +286,24 @@ public class Main {
                 eliminarAlbum();
                 break;
             }
+            
+            /****  Canciones  ****/
+            
+            case "agregar cancion": {
+                agregarCancion();
+                break;
+            }
+            
+            case "ver cancion": {
+                verCanciones();
+                break;
+            }
+            
+            case "eliminar cancion": {
+                eliminarCancion();
+                break;
+            }
+
             
             default:
                 System.out.println("Opción no válida");

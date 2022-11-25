@@ -25,7 +25,7 @@ public class Artista {
     
     public void getAlbumes() {
         for (int i = 0; i < listaAlbumes.size(); i++) {
-            System.out.println(i + " - " + listaAlbumes.get(i).getNombreAlbum());
+            System.out.println(i + " - " + listaAlbumes.get(i).getNombreAlbum() + " - " + listaAlbumes.get(i).getYearAlbum());
         }
     }
     
@@ -33,4 +33,7 @@ public class Artista {
         this.listaAlbumes.remove( i );
     }
     
+    public Album getAlbum ( int i ) {
+        return this.listaAlbumes.get ( i );
+    }
 }
