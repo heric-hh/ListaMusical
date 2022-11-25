@@ -8,13 +8,16 @@ import java.util.LinkedList;
  */
 public class Artista {
     private String nombreArtista;
+    LinkedList<Album> listaAlbumes;
     
     public Artista ( String nombre ) {
         this.nombreArtista = nombre;
-        LinkedList<Album> listaAlbumes = new LinkedList<>();
+        listaAlbumes = new LinkedList<>(); // Iniciar lista ligada de albumes
     }
     
     public String getArtistaNombre() { return this.nombreArtista; }
+    
+    
     
     
 }

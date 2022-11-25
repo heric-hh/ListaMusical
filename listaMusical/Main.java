@@ -99,6 +99,26 @@ public class Main {
         }
     }
     
+    // Leer lista de artistas
+    public static void getListaArtistas() {
+        System.out.println("Lista de Artistas: ");
+        for (int i = 0; i < listaArtistas.size(); i++) {
+            System.out.println(i + " - " + listaArtistas.get(i).getArtistaNombre() );
+        }
+    }
+    
+    // Eliminar elemento de la lista de artistas
+    public static void eliminarArtista() throws IOException {
+        BufferedReader bf = new BufferedReader (new InputStreamReader( System.in ));
+        int index; // Variable para obtener el indice del valor a eliminar
+        
+        System.out.println("Ingresa el número del artista que quieres eliminar: ");
+        getListaArtistas();
+        index = Integer.parseInt(bf.readLine());
+        listaArtistas.remove(index);
+        System.out.println("¡Artista Eliminado!");
+    }
+    
     
     public static void main(String[] args) throws IOException {
         BufferedReader bf = new BufferedReader ( new InputStreamReader ( System.in ) );
@@ -107,27 +127,47 @@ public class Main {
         // String archivoName; Variable para leer el archivo
         String artistaNombre;
         
-        res = bf.readLine();
         
         do {
+            System.out.println("¿Qué quieres hacer?");
+            res = bf.readLine();
+
             switch ( res ) {
-            case "nuevo artista":
-                // Pedir nombre del archivo que se almacena en la variable archivoName
-                //archivoName = getNombreArchivo();
+                
+            // Artistas
+                
+            case "agregar artista": {
+                System.out.println("Escribe el nombre del artista que quieres agregar: ");
                 artistaNombre = escribirArchivo ( "artistas" );
                 listaArtistas.add( new Artista ( artistaNombre ) );
 
                 System.out.println("Artista Guardado");
             break;
+            }
             
-            case "add album":
+            case "ver artistas": {
+                getListaArtistas();
+                break;
+            }
+            
+            case "eliminar artista" : {
+                eliminarArtista();
+                break;
+            
+            }
+
+
+            // Album
+            
+            case "agregar album": {
                 añadirAlbum();
                 break;
+            }
             
             default:
                 System.out.println("Opción no válida");
         }
-            System.out.println( "¿Deseas Continuar?" );
+            System.out.println( "¿Deseas Continuar? y/n" );
             YesNo = bf.readLine();
             
         } while ( YesNo.equals("y") );
